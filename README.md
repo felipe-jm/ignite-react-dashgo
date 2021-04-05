@@ -8,6 +8,8 @@
   Dashboard created with next.js and chakra-ui :zap:
 </h4>
 
+![App image](./app.png)
+
 ## :information_source: How To Use
 
 ```bash
