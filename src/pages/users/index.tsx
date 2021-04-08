@@ -20,7 +20,7 @@ import { Sidebar } from "components/Sidebar";
 import { Header } from "components/Header";
 import { Pagination } from "components/Pagination";
 
-const UserList = () => (
+const ListUsers = () => (
   <Box>
     <Header />
 
@@ -90,4 +90,4 @@ const UserList = () => (
   </Box>
 );
 
-export default UserList;
+export default ListUsers;
