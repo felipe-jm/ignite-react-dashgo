@@ -26,11 +26,11 @@ import { Sidebar } from "components/Sidebar";
 import { Header } from "components/Header";
 import { Pagination } from "components/Pagination";
 
+import { api } from "services/api";
+
 const ListUsers = () => {
   const { data, isLoading, isFetching, error } = useQuery("users", async () => {
-    const response = await fetch("http://localhost:3000/api/users");
-    const data = await response.json();
-
+    const { data } = await api.get("/users");
     const users = data.users.map((user) => ({
       ...user,
       createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
