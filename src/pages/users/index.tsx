@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { GetServerSideProps } from "next";
 import NextLink from "next/link";
 
 import {
@@ -27,13 +28,20 @@ import { Sidebar } from "components/Sidebar";
 import { Header } from "components/Header";
 import { Pagination } from "components/Pagination";
 
-import { useUsers } from "services/hooks/useUsers";
+import { getUsers, User, useUsers } from "services/hooks/useUsers";
 import { queryClient } from "services/queryClient";
 import { api } from "services/api";
 
-const ListUsers = () => {
+type ListUsersProps = {
+  users: User[];
+  totalCount: number;
+};
+
+const ListUsers = ({ users, totalCount }: ListUsersProps) => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, error } = useUsers(page);
+  const { data, isLoading, isFetching, error } = useUsers(page, {
+    initialData: { users, totalCount },
+  });
 
   const isDesktopOrTable = useBreakpointValue({
     base: false,
@@ -153,6 +161,17 @@ const ListUsers = () => {
       </Flex>
     </Box>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { users, totalCount } = await getUsers(1);
+
+  return {
+    props: {
+      users,
+      totalCount,
+    },
+  };
 };
 
 export default ListUsers;
